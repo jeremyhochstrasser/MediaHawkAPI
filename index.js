@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json()); // To parse JSON request bodies
 
-app.post('/api/generate-ideas', async (req, res) => {
+app.post('/generate-ai-ideas', async (req, res) => {
     try {
         // Extracting data from the request body
         const { businessType, currentChallenges, goalWithAI } = req.body;
@@ -25,7 +25,7 @@ app.post('/api/generate-ideas', async (req, res) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer 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` // Use an environment variable for the API key
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` // Use an environment variable for the API key
             },
             body: JSON.stringify(openaiRequestPayload)
         });
