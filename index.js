@@ -1,44 +1,43 @@
 const express = require('express');
-const fetch = require('node-fetch'); // Make sure node-fetch is installed
+const fetch = require('node-fetch'); // Only if using Node.js
 const app = express();
 
-app.use(express.json()); // For parsing application/json
+app.use(express.json()); // To parse JSON request bodies
 
 app.post('/api/generate-ideas', async (req, res) => {
     try {
         // Extracting data from the request body
-        // Assuming the format is something like:
-        // {
-        //     businessType: '...',
-        //     currentChallenges: '...',
-        //     goalWithAI: '...'
-        // }
         const { businessType, currentChallenges, goalWithAI } = req.body;
 
         // Construct the prompt for the OpenAI API
         const prompt = `Generate ideas on how AI can help in business.\nBusiness Type: ${businessType}\nChallenges: ${currentChallenges}\nGoals with AI: ${goalWithAI}`;
 
+        // Define the request payload for OpenAI API, including max_tokens
         const openaiRequestPayload = {
             model: "gpt-3.5-turbo",
             messages: [{"role": "user", "content": prompt}],
-            temperature: 0.7
+            temperature: 0.7,
+            max_tokens: 150 // Set the max_tokens value as needed
         };
 
+        // Make the API call to OpenAI
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}` // Use an environment variable
+                'Authorization': `Bearer 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` // Use an environment variable for the API key
             },
             body: JSON.stringify(openaiRequestPayload)
         });
 
+        // Check if the response is not okay
         if (!response.ok) {
             const errorText = await response.text();
             console.error("Error response from OpenAI:", errorText);
             return res.status(500).send(`Error from OpenAI API: ${errorText}`);
         }
 
+        // Parse the response data
         const data = await response.json();
         res.status(200).json(data);
     } catch (error) {
@@ -47,7 +46,7 @@ app.post('/api/generate-ideas', async (req, res) => {
     }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
