@@ -20,6 +20,7 @@ app.post('/api/generate-ideas', async (req, res) => {
             max_tokens: 150 // Set the max_tokens value as needed
         };
 
+        
         // Make the API call to OpenAI
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
