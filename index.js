@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json()); // To parse JSON request bodies
 
-app.post('/generate-ai-ideas', async (req, res) => {
+app.post('/api/generate-ideas', async (req, res) => {
     try {
         // Extracting data from the request body
         const { businessType, currentChallenges, goalWithAI } = req.body;
