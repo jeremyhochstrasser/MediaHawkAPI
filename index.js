@@ -1,8 +1,18 @@
 const express = require('express');
 const fetch = require('node-fetch'); // Only if using Node.js
 const app = express();
+const cors = require('cors');
 
 app.use(express.json()); // To parse JSON request bodies
+
+// Set up CORS to allow requests from your specific domain
+const corsOptions = {
+    origin: 'https://www.mediahawk.ai',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+  
+app.use(cors(corsOptions));
+
 
 app.post('/api/generate-ideas', async (req, res) => {
     try {
