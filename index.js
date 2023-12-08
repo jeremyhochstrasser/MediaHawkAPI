@@ -20,7 +20,7 @@ app.post('/api/generate-ideas', async (req, res) => {
         const { businessType, currentChallenges, goalWithAI } = req.body;
 
         // Construct the prompt for the OpenAI API
-        const prompt = `Generate ideas on how AI can help in business.\nBusiness Type: ${businessType}\nChallenges: ${currentChallenges}\nGoals with AI: ${goalWithAI}`;
+        const prompt = `In about 100 words, generate ideas on how AI can help in business.\nBusiness Type: ${businessType}\nChallenges: ${currentChallenges}\nGoals with AI: ${goalWithAI}`;
 
         // Define the request payload for OpenAI API, including max_tokens
         const openaiRequestPayload = {
