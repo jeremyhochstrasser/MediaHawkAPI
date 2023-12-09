@@ -7,10 +7,10 @@ app.use(express.json()); // To parse JSON request bodies
 
 // Set up CORS to allow requests from your specific domain
 const corsOptions = {
-    origin: 'https://www.mediahawk.ai',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  };
-  
+    origin: ['https://www.mediahawk.ai', 'http://localhost:3000'],
+    optionsSuccessStatus: 200
+};
+
 app.use(cors(corsOptions));
 
 
