@@ -63,14 +63,14 @@ app.post('/api/generate-hangman', async (req, res) => {
         const { wordGenre } = req.body;
 
         // Construct the prompt for the OpenAI API
-        const prompt = `In 1 word, generate a word to play hangman with that is 8 letters long and relates to the following: ${wordGenre}`;
+        const prompt = `In 1 word, generate a word to play hangman with that is 4 to 10 letters long and relates to the following: ${wordGenre}`;
 
         // Define the request payload for OpenAI API, including max_tokens
         const openaiRequestPayload = {
             model: "gpt-3.5-turbo",
             messages: [{"role": "user", "content": prompt}],
             temperature: 0.7,
-            max_tokens: 15 // Set the max_tokens value as needed
+            max_tokens: 20 // Set the max_tokens value as needed
         };
 
         
